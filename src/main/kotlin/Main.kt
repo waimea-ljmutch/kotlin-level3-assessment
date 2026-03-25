@@ -9,8 +9,8 @@ import javax.swing.*
 fun main() {
     FlatMacDarkLaf.setup()          // Initialise the LAF
 
-    val app = App()                 // Get an app state object
-    val window = MainWindow(app)    // Spawn the UI, passing in the app state
+    val game = Game()                 // Get an app state object
+    val window = MainWindow(game)    // Spawn the UI, passing in the app state
 
     SwingUtilities.invokeLater { window.show() }
 }
@@ -22,7 +22,7 @@ fun main() {
  * @property name the user's name
  * @property score the points earned
  */
-class App {
+class Game {
     var name = "Test"
     var score = 0
 
@@ -39,13 +39,25 @@ class App {
     }
 }
 
+class Island(){
+    val name
+    val dinos = mutableListOf<Dino>()
+    val
+}
+
+class Dino() {
+    val name: String ()
+    val Health =
+
+}
+
 
 /**
  * Main UI window, handles user clicks, etc.
  *
  * @param app the app state object
  */
-class MainWindow(val app: App) {
+class MainWindow(val game: Game) {
     val frame = JFrame("WINDOW TITLE")
     private val panel = JPanel().apply { layout = null }
 
@@ -54,7 +66,7 @@ class MainWindow(val app: App) {
     private val infoLabel = JLabel()
     private val clickButton = JButton("Click Me!")
 
-    private val infoWindow = InfoWindow(this, app)      // Pass app state to dialog too
+    private val infoWindow = InfoWindow(this, game)      // Pass app state to dialog too
 
     init {
         setupLayout()
@@ -125,7 +137,7 @@ class MainWindow(val app: App) {
  * @param owner the parent frame, used to position and layer the dialog correctly
  * @param app the app state object
  */
-class InfoWindow(val owner: MainWindow, val app: App) {
+class InfoWindow(val owner: MainWindow, val game: Game) {
     private val dialog = JDialog(owner.frame, "DIALOG TITLE", false)
     private val panel = JPanel().apply { layout = null }
 
@@ -167,7 +179,7 @@ class InfoWindow(val owner: MainWindow, val app: App) {
     }
 
     private fun handleResetClick() {
-        app.resetScore()    // Update the app state
+        game.resetScore()    // Update the app state
         owner.updateUI()    // Update the UI to reflect this, via the main window
     }
 
