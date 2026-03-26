@@ -22,7 +22,7 @@ fun main() {
  * @property name the user's name
  * @property score the points earned
  */
-class Game {
+class Game() {
     var name = "Test"
     var score = 0
 
@@ -30,24 +30,25 @@ class Game {
         score += points
     }
 
+    //    val locations = mutableListOf()
+
     fun resetScore() {
         score = 0
     }
 
-    fun maxScoreReached(): Boolean {
-        return score >= 10000
-    }
 }
 
-class Island(){
-    val name
+class Island() {
+    val name: String = ""
+
     val dinos = mutableListOf<Dino>()
-    val
+    val distance: String = ""
+
 }
 
 class Dino() {
-    val name: String ()
-    val Health =
+    val name: String = ""
+    val HP: Int = 100
 
 }
 
@@ -61,10 +62,10 @@ class MainWindow(val game: Game) {
     val frame = JFrame("WINDOW TITLE")
     private val panel = JPanel().apply { layout = null }
 
-    private val titleLabel = JLabel("APP TITLE")
+    private val titleLabel = JLabel("Dino Explorer")
 
     private val infoLabel = JLabel()
-    private val clickButton = JButton("Click Me!")
+    private val clickButton = JButton()
 
     private val infoWindow = InfoWindow(this, game)      // Pass app state to dialog too
 
