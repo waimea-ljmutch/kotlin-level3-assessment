@@ -13,24 +13,32 @@ fun main() {
     val window = MainWindow(game)    // Spawn the UI, passing in the app state
 
     SwingUtilities.invokeLater { window.show() }
+    ClassLoader.getSystemResource()
 }
 
 
 /**
  * Manage app state
  *
- * @property name the user's name
  * @property score the points earned
  */
 class Game() {
-    var name = "Test"
     var score = 0
+    val islands = mutableListOf<Island>()
+
+    init {
+        val triassic = Island("triassic Island", 250)
+
+        val kevin = Dino("Kevin", health = 100)
+
+        kevin.species = "carnovore"
+        triassic.addDino(kevin)
+        islands.add(triassic)
+    }
 
     fun scorePoints(points: Int) {
         score += points
     }
-
-    //    val locations = mutableListOf()
 
     fun resetScore() {
         score = 0
@@ -38,17 +46,17 @@ class Game() {
 
 }
 
-class Island() {
-    val name: String = ""
-
+class Island(val name: String, val distance: Int) {
     val dinos = mutableListOf<Dino>()
-    val distance: String = ""
 
+    fun addDino(dino: Dino) {
+        dinos.add(dino)
+    }
 }
 
-class Dino() {
-    val name: String = ""
-    val HP: Int = 100
+class Dino(val name: String, val health: Int) {
+    var species: String = "Unknown"
+    var typeOfDino: String = "typeOfDino"
 
 }
 
@@ -122,7 +130,7 @@ class MainWindow(val game: Game) {
     }
 
     fun updateUI() {
-
+        val Icon = ImageIcon(ClassLoader.getSystemResource("compass.png"))
     }
 
     fun show() {
