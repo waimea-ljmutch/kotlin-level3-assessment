@@ -1,7 +1,11 @@
 import com.formdev.flatlaf.themes.FlatMacDarkLaf
 import java.awt.Color
 import java.awt.Font
+import java.awt.Image
 import javax.swing.*
+
+fun ImageIcon.scaled(width: Int, height: Int): ImageIcon =
+    ImageIcon(image.getScaledInstance(width, height, Image.SCALE_SMOOTH))
 
 /**
  * Application entry point
@@ -13,7 +17,6 @@ fun main() {
     val window = MainWindow(game)    // Spawn the UI, passing in the app state
 
     SwingUtilities.invokeLater { window.show() }
-    ClassLoader.getSystemResource()
 }
 
 
@@ -77,6 +80,13 @@ class MainWindow(val game: Game) {
 
     private val infoWindow = InfoWindow(this, game)      // Pass app state to dialog too
 
+    private val trexIcon = ImageIcon(ClassLoader.getSystemResource("images/dino-Trex.png")).scaled(150, 150)
+    private val mapIcon = ImageIcon(ClassLoader.getSystemResource("images/map.png")).scaled(1200, 600)
+
+    private val trexLabel = JLabel("T-rex!", trexIcon, SwingConstants.LEFT)
+    private val mapButton = JButton(mapIcon)
+
+
     init {
         setupLayout()
         setupStyles()
@@ -86,34 +96,49 @@ class MainWindow(val game: Game) {
     }
 
     private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(1200, 600)
+        panel.preferredSize = java.awt.Dimension(1200, 1000)
 
-        titleLabel.setBounds(30, 30, 1200, 600)
+        titleLabel.setBounds(500, 10, 200, 600)
 
-        clickButton.setBounds(30, 150, 240, 40)
+        clickButton.setBounds(500, 800, 240, 40)
+
+        trexLabel.setBounds(515, 820, 300, 200)
+
+        mapButton.setBounds(0, 150, 1200, 600)
 
 
         panel.add(titleLabel)
 
         panel.add(clickButton)
+        panel.add(trexLabel)
+        panel.add(mapButton)
 
     }
 
     private fun setupStyles() {
-        titleLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 32)
+        titleLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 40)
 
-        clickButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        clickButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 30)
         clickButton.background = Color(0xcc0055)
 
     }
 
     private fun setupWindow() {
-        frame.isResizable = false                           // Can't resize
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE  // Exit upon window close
-        frame.contentPane = panel                           // Define the main content
+        frame.isResizable = false
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.contentPane = panel
+
         frame.pack()
-        frame.setLocationRelativeTo(null)                   // Centre on the screen
+        frame.setLocationRelativeTo(null) // center screen
+
+        trexLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
+        trexLabel.horizontalTextPosition = SwingConstants.RIGHT
+
+        mapButton.isBorderPainted = false
+        mapButton.isFocusPainted = false
+        mapButton.isContentAreaFilled = false
     }
+
 
     private fun setupActions() {
         clickButton.addActionListener { handleMainClick() }
@@ -130,7 +155,6 @@ class MainWindow(val game: Game) {
     }
 
     fun updateUI() {
-        val Icon = ImageIcon(ClassLoader.getSystemResource("compass.png"))
     }
 
     fun show() {
@@ -183,6 +207,7 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         dialog.pack()
     }
 
+
     private fun setupActions() {
 
     }
@@ -193,6 +218,7 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     }
 
     fun updateUI() {
+
         // Use app properties to display state
 
     }
