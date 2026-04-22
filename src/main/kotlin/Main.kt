@@ -69,21 +69,68 @@ class Dino(val name: String, val health: Int) {
  *
  * @param app the app state object
  */
+
+
+class NewWindow(val owner: MainWindow, val game: Game) {
+    private val frame = JFrame("My game")
+
+    private val panel = JPanel().apply { layout = null }
+
+
+    init {
+        setupLayout()
+        setupActions()
+        setupWindow()
+        updateUI()
+    }
+
+    private fun setupLayout() {
+        panel.preferredSize = java.awt.Dimension(400, 300)
+        panel.background = Color(0x1e1e2e)
+
+
+    }
+
+    private fun setupWindow() {
+        frame.isResizable = false
+        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        frame.contentPane = panel
+        frame.pack()
+        frame.setLocationRelativeTo(null)
+    }
+
+    private fun setupActions() {
+
+    }
+
+    fun updateUI() {
+
+    }
+
+    fun show() {
+        val ownerBounds = owner.frame.bounds          // get location of the main window
+
+    }
+
+
+}
+
 class MainWindow(val game: Game) {
     val frame = JFrame("WINDOW TITLE")
     private val panel = JPanel().apply { layout = null }
+
 
     private val titleLabel = JLabel("Dino Explorer")
 
     private val infoLabel = JLabel()
     private val clickButton = JButton()
 
-    private val infoWindow = InfoWindow(this, game)      // Pass app state to dialog too
+    private val infoWindow = InfoWindow(this, game) // Pass app state to dialog too
 
-    private val trexIcon = ImageIcon(ClassLoader.getSystemResource("images/dino-Trex.png")).scaled(150, 150)
-    private val mapIcon = ImageIcon(ClassLoader.getSystemResource("images/map.png")).scaled(1200, 600)
+    private val newWindow = NewWindow(this, game)
 
-    private val trexLabel = JLabel("T-rex!", trexIcon, SwingConstants.LEFT)
+    private val mapIcon = ImageIcon(ClassLoader.getSystemResource("images/island-for-game.png")).scaled(1200, 600)
+
     private val mapButton = JButton(mapIcon)
 
 
@@ -98,11 +145,11 @@ class MainWindow(val game: Game) {
     private fun setupLayout() {
         panel.preferredSize = java.awt.Dimension(1200, 1000)
 
-        titleLabel.setBounds(500, 10, 200, 600)
+        titleLabel.setBounds(0, 0, 1200, 100)
 
         clickButton.setBounds(500, 800, 240, 40)
 
-        trexLabel.setBounds(515, 820, 300, 200)
+
 
         mapButton.setBounds(0, 150, 1200, 600)
 
@@ -110,13 +157,13 @@ class MainWindow(val game: Game) {
         panel.add(titleLabel)
 
         panel.add(clickButton)
-        panel.add(trexLabel)
         panel.add(mapButton)
 
     }
 
     private fun setupStyles() {
         titleLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 40)
+        titleLabel.horizontalAlignment = SwingConstants.CENTER
 
         clickButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 30)
         clickButton.background = Color(0xcc0055)
@@ -131,8 +178,6 @@ class MainWindow(val game: Game) {
         frame.pack()
         frame.setLocationRelativeTo(null) // center screen
 
-        trexLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
-        trexLabel.horizontalTextPosition = SwingConstants.RIGHT
 
         mapButton.isBorderPainted = false
         mapButton.isFocusPainted = false
@@ -146,13 +191,11 @@ class MainWindow(val game: Game) {
     }
 
     private fun handleMainClick() {
-        // Update the app state
+        clickButton.addActionListener { handleMainClick() }
+        infoWindow.show()                                               // Update the app state
         // Update this window UI to reflect this
     }
 
-    private fun handleInfoClick() {
-        infoWindow.show()
-    }
 
     fun updateUI() {
     }
@@ -171,11 +214,15 @@ class MainWindow(val game: Game) {
  * @param app the app state object
  */
 class InfoWindow(val owner: MainWindow, val game: Game) {
-    private val dialog = JDialog(owner.frame, "DIALOG TITLE", false)
+    private val dialog = JDialog(owner.frame, "dino collection", false)
     private val panel = JPanel().apply { layout = null }
 
     private val infoLabel = JLabel()
-    private val resetButton = JButton("Reset")
+
+    private val trexIcon = ImageIcon(ClassLoader.getSystemResource("images/dino-Trex.png")).scaled(150, 150)
+
+    private val trexLabel = JLabel("T-rex!", trexIcon, SwingConstants.LEFT)
+
 
     init {
         setupLayout()
@@ -188,16 +235,18 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     private fun setupLayout() {
         panel.preferredSize = java.awt.Dimension(600, 600)
 
+        trexLabel.setBounds(515, 820, 300, 200)
 
-        resetButton.setBounds(30, 120, 180, 30)
+        panel.add(trexLabel)
+
 
         panel.add(infoLabel)
-        panel.add(resetButton)
+
     }
 
     private fun setupStyles() {
         infoLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 16)
-        resetButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 16)
+
     }
 
     private fun setupWindow() {
@@ -205,6 +254,9 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         dialog.defaultCloseOperation = JDialog.HIDE_ON_CLOSE    // Hide upon window close
         dialog.contentPane = panel                              // Main content panel
         dialog.pack()
+
+        trexLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
+        trexLabel.horizontalTextPosition = SwingConstants.RIGHT
     }
 
 
@@ -213,7 +265,7 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     }
 
     private fun handleResetClick() {
-        game.resetScore()    // Update the app state
+        // Update the app state
         owner.updateUI()    // Update the UI to reflect this, via the main window
     }
 
