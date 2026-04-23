@@ -123,7 +123,7 @@ class MainWindow(val game: Game) {
     private val titleLabel = JLabel("Dino Explorer")
 
     private val infoLabel = JLabel()
-    private val clickButton = JButton()
+    private val clickButton = JButton("Dino Info")
 
     private val infoWindow = InfoWindow(this, game) // Pass app state to dialog too
 
@@ -166,7 +166,7 @@ class MainWindow(val game: Game) {
         titleLabel.horizontalAlignment = SwingConstants.CENTER
 
         clickButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 30)
-        clickButton.background = Color(0xcc0055)
+        clickButton.background = Color(19104189)
 
     }
 
@@ -219,9 +219,9 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
 
     private val infoLabel = JLabel()
 
-    private val trexIcon = ImageIcon(ClassLoader.getSystemResource("images/dino-Trex.png")).scaled(150, 150)
+    private val carnoIcon = ImageIcon(ClassLoader.getSystemResource("images/dino-carno.png")).scaled(150, 150)
 
-    private val trexLabel = JLabel("T-rex!", trexIcon, SwingConstants.LEFT)
+    private val carnoLabel = JLabel("Carnotorus!", carnoIcon, SwingConstants.LEFT)
 
 
     init {
@@ -235,9 +235,10 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     private fun setupLayout() {
         panel.preferredSize = java.awt.Dimension(600, 600)
 
-        trexLabel.setBounds(515, 820, 300, 200)
+        carnoLabel.setBounds(100, 100, 400, 300)
 
-        panel.add(trexLabel)
+
+        panel.add(carnoLabel)
 
 
         panel.add(infoLabel)
@@ -255,8 +256,8 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         dialog.contentPane = panel                              // Main content panel
         dialog.pack()
 
-        trexLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
-        trexLabel.horizontalTextPosition = SwingConstants.RIGHT
+        carnoLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
+        carnoLabel.horizontalTextPosition = SwingConstants.RIGHT
     }
 
 
