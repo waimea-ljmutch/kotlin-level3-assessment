@@ -2,13 +2,15 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf
 import java.awt.Color
 import java.awt.Font
 import java.awt.Image
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import javax.swing.*
 
 fun ImageIcon.scaled(width: Int, height: Int): ImageIcon =
     ImageIcon(image.getScaledInstance(width, height, Image.SCALE_SMOOTH))
 
 /**
- * Application entry point
+ * game entry point
  */
 fun main() {
     FlatMacDarkLaf.setup()          // Initialise the LAF
@@ -21,45 +23,54 @@ fun main() {
 
 
 /**
- * Manage app state
+ * Manage game state
  *
  * @property score the points earned
  */
 class Game() {
     var score = 0
     val islands = mutableListOf<Island>()
+    var currentIsland: Island? = null
 
     init {
-        val triassic = Island("triassic Island", 250)
+        val triassic = Island("triassic Island", 210, 120, 25)
 
-        val kevin = Dino("Kevin", health = 100)
+        val jurassic = Island("jurassic Island", 303, 317, 25)
 
-        kevin.species = "carnovore"
+        val barassic = Island("barassic Island", 694, 205, 25)
+
+        val kevin = Dino("Kevin", "carnovore", "dino-carno.png")
+
+        val dave = Dino("Dave", "carnovore", "dino-trex.png")
+
+
         triassic.addDino(kevin)
+        jurassic.addDino(dave)
         islands.add(triassic)
+        islands.add(jurassic)
+        islands.add(barassic)
     }
 
-    fun scorePoints(points: Int) {
-        score += points
+    fun gotoIsland(island: Island) {
+        currentIsland = island
     }
-
-    fun resetScore() {
-        score = 0
-    }
-
 }
 
-class Island(val name: String, val distance: Int) {
+class Island(
+    val name: String,
+    val mapX: Int,
+    val mapY: Int,
+    var mapR: Int
+) {
     val dinos = mutableListOf<Dino>()
+
 
     fun addDino(dino: Dino) {
         dinos.add(dino)
     }
 }
 
-class Dino(val name: String, val health: Int) {
-    var species: String = "Unknown"
-    var typeOfDino: String = "typeOfDino"
+class Dino(val name: String, species: String, image: String) {
 
 }
 
@@ -67,53 +78,8 @@ class Dino(val name: String, val health: Int) {
 /**
  * Main UI window, handles user clicks, etc.
  *
- * @param app the app state object
+ * @param game the game state object
  */
-
-
-class NewWindow(val owner: MainWindow, val game: Game) {
-    private val frame = JFrame("My game")
-
-    private val panel = JPanel().apply { layout = null }
-
-
-    init {
-        setupLayout()
-        setupActions()
-        setupWindow()
-        updateUI()
-    }
-
-    private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(400, 300)
-        panel.background = Color(0x1e1e2e)
-
-
-    }
-
-    private fun setupWindow() {
-        frame.isResizable = false
-        frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        frame.contentPane = panel
-        frame.pack()
-        frame.setLocationRelativeTo(null)
-    }
-
-    private fun setupActions() {
-
-    }
-
-    fun updateUI() {
-
-    }
-
-    fun show() {
-        val ownerBounds = owner.frame.bounds          // get location of the main window
-
-    }
-
-
-}
 
 class MainWindow(val game: Game) {
     val frame = JFrame("WINDOW TITLE")
@@ -122,16 +88,14 @@ class MainWindow(val game: Game) {
 
     private val titleLabel = JLabel("Dino Explorer")
 
-    private val infoLabel = JLabel()
     private val clickButton = JButton("Dino Info")
 
     private val infoWindow = InfoWindow(this, game) // Pass app state to dialog too
 
-    private val newWindow = NewWindow(this, game)
 
     private val mapIcon = ImageIcon(ClassLoader.getSystemResource("images/island-for-game.png")).scaled(1200, 600)
 
-    private val mapButton = JButton(mapIcon)
+    private val mapLabel = JLabel(mapIcon)
 
 
     init {
@@ -151,13 +115,13 @@ class MainWindow(val game: Game) {
 
 
 
-        mapButton.setBounds(0, 150, 1200, 600)
+        mapLabel.setBounds(0, 150, 1200, 600)
 
 
         panel.add(titleLabel)
 
         panel.add(clickButton)
-        panel.add(mapButton)
+        panel.add(mapLabel)
 
     }
 
@@ -177,17 +141,34 @@ class MainWindow(val game: Game) {
 
         frame.pack()
         frame.setLocationRelativeTo(null) // center screen
-
-
-        mapButton.isBorderPainted = false
-        mapButton.isFocusPainted = false
-        mapButton.isContentAreaFilled = false
     }
 
 
     private fun setupActions() {
         clickButton.addActionListener { handleMainClick() }
+        mapLabel.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent) {
+                handleMapClick(e.x, e.y)
+            }
+        })
+    }
 
+    private fun handleMapClick(x: Int, y: Int) {
+        println("$x, $y")
+
+        for (island in game.islands) {
+            if (
+                x >= island.mapX - island.mapR &&
+                y >= island.mapY - island.mapR &&
+                x <= island.mapX + island.mapR &&
+                y <= island.mapY + island.mapR
+            ) {
+
+                game.gotoIsland(island)
+
+                println("Going to ${island.name}")
+            }
+        }
     }
 
     private fun handleMainClick() {
@@ -263,11 +244,6 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
 
     private fun setupActions() {
 
-    }
-
-    private fun handleResetClick() {
-        // Update the app state
-        owner.updateUI()    // Update the UI to reflect this, via the main window
     }
 
     fun updateUI() {
