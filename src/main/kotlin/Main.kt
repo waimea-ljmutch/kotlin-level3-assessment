@@ -39,9 +39,9 @@ class Game() {
 
         val barassic = Island("barassic Island", 694, 205, 25)
 
-        val kevin = Dino("Kevin", "carnovore", "dino-carno.png")
+        val kevin = Dino("Kevin", "carnivore", "dino-carno.png")
 
-        val dave = Dino("Dave", "carnovore", "dino-trex.png")
+        val dave = Dino("Dave", "carnivore", "dino-trex.png")
 
 
         triassic.addDino(kevin)
@@ -62,17 +62,15 @@ class Island(
     val mapY: Int,
     var mapR: Int
 ) {
-    val dinos = mutableListOf<Dino>()
+    var dino: Dino? = null
 
-
-    fun addDino(dino: Dino) {
-        dinos.add(dino)
+    fun addDino(newDino: Dino) {
+        dino = newDino
     }
 }
 
-class Dino(val name: String, species: String, image: String) {
-
-}
+// Data class for dinos
+class Dino(val name: String, val species: String, val image: String)
 
 
 /**
@@ -167,6 +165,8 @@ class MainWindow(val game: Game) {
                 game.gotoIsland(island)
 
                 println("Going to ${island.name}")
+
+                // Reposition the target label to the island X,Y
             }
         }
     }
@@ -179,6 +179,7 @@ class MainWindow(val game: Game) {
 
 
     fun updateUI() {
+
     }
 
     fun show() {
@@ -200,9 +201,8 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
 
     private val infoLabel = JLabel()
 
-    private val carnoIcon = ImageIcon(ClassLoader.getSystemResource("images/dino-carno.png")).scaled(150, 150)
 
-    private val carnoLabel = JLabel("Carnotorus!", carnoIcon, SwingConstants.LEFT)
+    private val dinoLabel = JLabel("DINO")
 
 
     init {
@@ -216,10 +216,10 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     private fun setupLayout() {
         panel.preferredSize = java.awt.Dimension(600, 600)
 
-        carnoLabel.setBounds(100, 100, 400, 300)
+        dinoLabel.setBounds(100, 100, 400, 300)
 
 
-        panel.add(carnoLabel)
+        panel.add(dinoLabel)
 
 
         panel.add(infoLabel)
@@ -237,8 +237,8 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         dialog.contentPane = panel                              // Main content panel
         dialog.pack()
 
-        carnoLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
-        carnoLabel.horizontalTextPosition = SwingConstants.RIGHT
+        dinoLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
+        dinoLabel.horizontalTextPosition = SwingConstants.RIGHT
     }
 
 
@@ -248,8 +248,23 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
 
     fun updateUI() {
 
-        // Use app properties to display state
+        if (game.currentIsland == null) {
+            dinoLabel.text = "Select an island to go to..."
+            return
+        }
 
+        if (game.currentIsland!!.dino == null) {
+            dinoLabel.text = "No dinos here!"
+            return
+        }
+
+        val dino = game.currentIsland!!.dino!!
+        val dinoFile = "images/" + dino.image
+        val dinoName = dino.name
+
+        val dinoIcon = ImageIcon(ClassLoader.getSystemResource(dinoFile)).scaled(150, 150)
+        dinoLabel.text = dinoName
+        dinoLabel.icon = dinoIcon
     }
 
     fun show() {
@@ -260,5 +275,7 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         )
 
         dialog.isVisible = true
+
+        updateUI()
     }
 }
