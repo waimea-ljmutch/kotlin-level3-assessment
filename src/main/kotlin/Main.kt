@@ -51,6 +51,14 @@ class Game() {
     fun gotoIsland(island: Island) {
         currentIsland = island
     }
+
+    fun scorePoint() {
+        dinoCount++
+    }
+
+    fun isOver(): Boolean {
+        return dinoCount >= 3
+    }
 }
 
 class Island(
@@ -63,6 +71,10 @@ class Island(
 
     fun addDino(newDino: Dino) {
         dino = newDino
+    }
+
+    fun removeDino() {
+        dino = null
     }
 }
 
@@ -84,10 +96,10 @@ class MainWindow(val game: Game) {
     private val titleLabel = JLabel("Dino Explorer")
     private val islandLabel = JLabel("Click the map to travel to an island...")
 
-    private val dinoButton = JButton("Dino Info")
+    private val dinoButton = JButton("Search Island...")
     private val infoWindow = InfoWindow(this, game) // Pass app state to dialog too
 
-    private val dinoCount = JLabel("")
+    private val countLabel = JLabel("Count of Dino")
     // putting the dino count score next to the dino label to show the dinos you have collected
 
 
@@ -114,16 +126,18 @@ class MainWindow(val game: Game) {
         mapLabel.setBounds(0, 100, 1200, 600)
         targetLabel.setBounds(0, 0, 100, 100)
         islandLabel.setBounds(100, 730, 600, 40)
+        countLabel.setBounds(500, 730, 600, 40)
 
         panel.add(titleLabel)
         panel.add(dinoButton)
         panel.add(mapLabel)
         panel.add(islandLabel)
         panel.add(targetLabel)
+        panel.add(countLabel)
 
         panel.setComponentZOrder(targetLabel, 0)
 
-        targetLabel.isVisible = true
+        targetLabel.isVisible = false
         dinoButton.isEnabled = false
     }
 
@@ -135,6 +149,8 @@ class MainWindow(val game: Game) {
         dinoButton.background = Color(19104189)
 
         islandLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+
+        countLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
 
     }
 
@@ -170,9 +186,8 @@ class MainWindow(val game: Game) {
 
                 game.gotoIsland(island)
 
-
-
                 targetLabel.setLocation(island.mapX - 50, island.mapY + 50)
+                targetLabel.isVisible = true
 
                 islandLabel.text = "Going to ${island.name}"
                 dinoButton.isEnabled = true
@@ -188,7 +203,7 @@ class MainWindow(val game: Game) {
 
 
     fun updateUI() {
-
+        countLabel.text = "Collected: ${game.dinoCount} / 3"
     }
 
     fun show() {
@@ -209,8 +224,8 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     private val panel = JPanel().apply { layout = null }
 
     private val infoLabel = JLabel("DINO NAME")
-    private val dinoLabel = JLabel("DINO")
-    private val dinoCount = JButton("Colect Dino")
+    private val dinoLabel = JLabel()
+    private val collectButton = JButton("Collect Dino")
 
 
     init {
@@ -222,16 +237,15 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     }
 
     private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(300, 400)
+        panel.preferredSize = java.awt.Dimension(300, 440)
 
         dinoLabel.setBounds(30, 30, 240, 240)
         infoLabel.setBounds(30, 300, 240, 40)
-        dinoCount.setBounds(100, 300, 100, 40)
+        collectButton.setBounds(30, 370, 240, 40)
 
         panel.add(dinoLabel)
         panel.add(infoLabel)
-        panel.add(dinoCount)
-
+        panel.add(collectButton)
     }
 
     private fun setupStyles() {
@@ -250,18 +264,39 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
 
 
     private fun setupActions() {
+        collectButton.addActionListener { handleDinoClick() }
+    }
 
+    fun handleDinoClick() {
+        if (game.currentIsland?.dino == null) return
+
+        game.scorePoint()
+        game.currentIsland?.removeDino()
+        updateUI()
+        owner.updateUI()
+
+        if (game.isOver()) {
+            JOptionPane.showMessageDialog(
+                owner.frame,
+                "You found them all!!!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE
+            )
+        }
     }
 
     fun updateUI() {
 
         if (game.currentIsland == null) {
             infoLabel.text = "Select an island to go to..."
+            collectButton.isEnabled = false
             return
         }
 
         if (game.currentIsland!!.dino == null) {
             infoLabel.text = "No dinos here!"
+            dinoLabel.icon = null
+            collectButton.isEnabled = false
             return
         }
 
@@ -270,8 +305,9 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         val dinoName = dino.name
 
         val dinoIcon = ImageIcon(ClassLoader.getSystemResource(dinoFile)).scaled(240, 240)
-        infoLabel.text = dinoName
+        infoLabel.text = "You have found $dinoName!!!"
         dinoLabel.icon = dinoIcon
+        collectButton.isEnabled = true
     }
 
     fun show() {
