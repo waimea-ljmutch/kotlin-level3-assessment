@@ -10,31 +10,33 @@ Terminology:
 
 ---
 
-## Example Test Name
+## dino show
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+testing to see if the dino show when click on islands
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
-
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+Statement detailing what should happen.
 
 ---
 
 ## Example Test Name
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+Example test description. Example test description. Example test description. Example test description. Example test
+description. Example test description.
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and
+reasons for selection.
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
+Statement detailing what should happen.
 
 ---
 

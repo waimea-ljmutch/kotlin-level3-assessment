@@ -25,26 +25,23 @@ fun main() {
 /**
  * Manage game state
  *
- * @property score the points earned
+ * @property dinoCount the points earned
  */
 class Game() {
-    var score = 0
+    var dinoCount = 0
     val islands = mutableListOf<Island>()
     var currentIsland: Island? = null
 
     init {
         val triassic = Island("triassic Island", 210, 120, 25)
-
         val jurassic = Island("jurassic Island", 303, 317, 25)
-
         val barassic = Island("barassic Island", 694, 205, 25)
-
         val kevin = Dino("Kevin", "carnivore", "dino-carno.png")
-
         val dave = Dino("Dave", "carnivore", "dino-trex.png")
-
+        val drako = Dino("drako", "herbivore", "dino-stego.png")
 
         triassic.addDino(kevin)
+        barassic.addDino(drako)
         jurassic.addDino(dave)
         islands.add(triassic)
         islands.add(jurassic)
@@ -85,15 +82,20 @@ class MainWindow(val game: Game) {
 
 
     private val titleLabel = JLabel("Dino Explorer")
+    private val islandLabel = JLabel("Click the map to travel to an island...")
 
-    private val clickButton = JButton("Dino Info")
-
+    private val dinoButton = JButton("Dino Info")
     private val infoWindow = InfoWindow(this, game) // Pass app state to dialog too
+
+    private val dinoCount = JLabel("")
+    // putting the dino count score next to the dino label to show the dinos you have collected
 
 
     private val mapIcon = ImageIcon(ClassLoader.getSystemResource("images/island-for-game.png")).scaled(1200, 600)
+    private val targetIcon = ImageIcon(ClassLoader.getSystemResource("images/red_target.png")).scaled(100, 100)
 
     private val mapLabel = JLabel(mapIcon)
+    private val targetLabel = JLabel(targetIcon)
 
 
     init {
@@ -105,30 +107,34 @@ class MainWindow(val game: Game) {
     }
 
     private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(1200, 1000)
+        panel.preferredSize = java.awt.Dimension(1200, 800)
 
         titleLabel.setBounds(0, 0, 1200, 100)
-
-        clickButton.setBounds(500, 800, 240, 40)
-
-
-
-        mapLabel.setBounds(0, 150, 1200, 600)
-
+        dinoButton.setBounds(800, 730, 240, 40)
+        mapLabel.setBounds(0, 100, 1200, 600)
+        targetLabel.setBounds(0, 0, 100, 100)
+        islandLabel.setBounds(100, 730, 600, 40)
 
         panel.add(titleLabel)
-
-        panel.add(clickButton)
+        panel.add(dinoButton)
         panel.add(mapLabel)
+        panel.add(islandLabel)
+        panel.add(targetLabel)
 
+        panel.setComponentZOrder(targetLabel, 0)
+
+        targetLabel.isVisible = true
+        dinoButton.isEnabled = false
     }
 
     private fun setupStyles() {
         titleLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 40)
         titleLabel.horizontalAlignment = SwingConstants.CENTER
 
-        clickButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 30)
-        clickButton.background = Color(19104189)
+        dinoButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 30)
+        dinoButton.background = Color(19104189)
+
+        islandLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
 
     }
 
@@ -143,7 +149,7 @@ class MainWindow(val game: Game) {
 
 
     private fun setupActions() {
-        clickButton.addActionListener { handleMainClick() }
+        dinoButton.addActionListener { handleMainClick() }
         mapLabel.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
                 handleMapClick(e.x, e.y)
@@ -164,15 +170,18 @@ class MainWindow(val game: Game) {
 
                 game.gotoIsland(island)
 
-                println("Going to ${island.name}")
 
-                // Reposition the target label to the island X,Y
+
+                targetLabel.setLocation(island.mapX - 50, island.mapY + 50)
+
+                islandLabel.text = "Going to ${island.name}"
+                dinoButton.isEnabled = true
             }
         }
     }
 
     private fun handleMainClick() {
-        clickButton.addActionListener { handleMainClick() }
+        dinoButton.addActionListener { handleMainClick() }
         infoWindow.show()                                               // Update the app state
         // Update this window UI to reflect this
     }
@@ -199,10 +208,9 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     private val dialog = JDialog(owner.frame, "dino collection", false)
     private val panel = JPanel().apply { layout = null }
 
-    private val infoLabel = JLabel()
-
-
+    private val infoLabel = JLabel("DINO NAME")
     private val dinoLabel = JLabel("DINO")
+    private val dinoCount = JButton("Colect Dino")
 
 
     init {
@@ -214,21 +222,20 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     }
 
     private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(600, 600)
+        panel.preferredSize = java.awt.Dimension(300, 400)
 
-        dinoLabel.setBounds(100, 100, 400, 300)
-
+        dinoLabel.setBounds(30, 30, 240, 240)
+        infoLabel.setBounds(30, 300, 240, 40)
+        dinoCount.setBounds(100, 300, 100, 40)
 
         panel.add(dinoLabel)
-
-
         panel.add(infoLabel)
+        panel.add(dinoCount)
 
     }
 
     private fun setupStyles() {
         infoLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 16)
-
     }
 
     private fun setupWindow() {
@@ -249,12 +256,12 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
     fun updateUI() {
 
         if (game.currentIsland == null) {
-            dinoLabel.text = "Select an island to go to..."
+            infoLabel.text = "Select an island to go to..."
             return
         }
 
         if (game.currentIsland!!.dino == null) {
-            dinoLabel.text = "No dinos here!"
+            infoLabel.text = "No dinos here!"
             return
         }
 
@@ -262,8 +269,8 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         val dinoFile = "images/" + dino.image
         val dinoName = dino.name
 
-        val dinoIcon = ImageIcon(ClassLoader.getSystemResource(dinoFile)).scaled(150, 150)
-        dinoLabel.text = dinoName
+        val dinoIcon = ImageIcon(ClassLoader.getSystemResource(dinoFile)).scaled(240, 240)
+        infoLabel.text = dinoName
         dinoLabel.icon = dinoIcon
     }
 
