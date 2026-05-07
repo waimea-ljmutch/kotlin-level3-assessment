@@ -34,7 +34,7 @@ class Game() {
 
     init {
         val triassic = Island("triassic Island", 210, 120, 25)
-        val jurassic = Island("jurassic Island", 303, 317, 25)
+        val jurassic = Island("jurassic Island", 303, 317, 25) //this all shows the islands
         val barassic = Island("barassic Island", 694, 205, 25)
         val islaSorna = Island("islaSorna", 321, 107, 25)
         val islaNublar = Island("IslaNublar", 638, 98, 25)
@@ -49,7 +49,7 @@ class Game() {
         val kevin = Dino("Kevin", "carnivore", "dino-carno.png")
         val dave = Dino("Dave", "carnivore", "dino-trex.png")
         val drako = Dino("drako", "herbivore", "dino-stego.png")
-        val drift = Dino("drift", "omnivore", "dino-quetzalcoatlus.png")
+        val drift = Dino("drift", "omnivore", "dino-quetzalcoatlus.png") //this shows the dinos on the islands
         val kairo = Dino("kairo", "carnivore", "dino-spino.png")
         val void = Dino("void", "carnivore", "dino-indoraptor.png")
         val goro = Dino("goro", "carnivore", "dino-giga.png")
@@ -85,7 +85,7 @@ class Game() {
     }
 
     fun isOver(): Boolean {
-        return dinoCount >= 7
+        return dinoCount >= 7 //shows when you collect all seven dinos
     }
 }
 
@@ -147,7 +147,7 @@ class MainWindow(val game: Game) {
     }
 
     private fun setupLayout() {
-        panel.preferredSize = java.awt.Dimension(1200, 800)
+        panel.preferredSize = java.awt.Dimension(1200, 800) //shows the layout of the whole windows
 
         titleLabel.setBounds(0, 0, 1200, 100)
         dinoButton.setBounds(800, 730, 240, 40)
@@ -176,7 +176,7 @@ class MainWindow(val game: Game) {
         dinoButton.font = Font(Font.SANS_SERIF, Font.PLAIN, 30)
         dinoButton.background = Color(19104189)
 
-        islandLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
+        islandLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 20) // shows the font and font size
 
         countLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 20)
 
@@ -197,7 +197,7 @@ class MainWindow(val game: Game) {
         mapLabel.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent) {
                 handleMapClick(e.x, e.y)
-            }
+            } // when you click on an island it register it
         })
     }
 
@@ -217,7 +217,7 @@ class MainWindow(val game: Game) {
                 targetLabel.setLocation(island.mapX - 50, island.mapY + 50)
                 targetLabel.isVisible = true
 
-                islandLabel.text = "Going to ${island.name}"
+                islandLabel.text = "Going to ${island.name}" //goes to a island when clicked
                 dinoButton.isEnabled = true
             }
         }
@@ -248,6 +248,7 @@ class MainWindow(val game: Game) {
  * @param app the app state object
  */
 class InfoWindow(val owner: MainWindow, val game: Game) {
+    // this is the second window
     private val dialog = JDialog(owner.frame, "dino collection", false)
     private val panel = JPanel().apply { layout = null }
 
@@ -321,14 +322,14 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
             return
         }
 
-        if (game.currentIsland!!.dino == null) {
+        if (game.currentIsland!!.dino == null) { // when you click collect it its gets rid of it
             infoLabel.text = "No dinos here!"
             dinoLabel.icon = null
             collectButton.isEnabled = false
             return
         }
 
-        val dino = game.currentIsland!!.dino!!
+        val dino = game.currentIsland!!.dino!! //this shows the dino iamge
         val dinoFile = "images/" + dino.image
         val dinoName = dino.name
 

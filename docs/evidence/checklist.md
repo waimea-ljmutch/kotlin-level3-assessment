@@ -44,7 +44,7 @@ The program code:
 
 - [x] Is **indented** correctly
 - [x] Is **laid-out clearly**
-- [ ] Contains **comments** that help in understanding how it works
+- [x] Contains **comments** that help in understanding how it works
 
 ### Program Testing
 
@@ -57,7 +57,7 @@ The program has been tested and there is documented evidence that:
     - [x] scoring (if any)
     - [x] player win / lose states
     - [ ] final feedback (if appropriate)
-- [ ] **Valid (expected) data** has been used to test **all data inputs**
+- [x] **Valid (expected) data** has been used to test **all data inputs**
 - [ ] Where tests have failed, **fixes** are discussed and **tests re-run**
 
 ---

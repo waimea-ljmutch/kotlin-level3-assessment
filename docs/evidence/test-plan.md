@@ -16,10 +16,9 @@ testing to see if the dino show when click on islands
 
 ### Test Data To Use
 
-### Expected Test Result
+trying to show the dino when clicked on the right island
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
-Statement detailing what should happen.
+### Expected Test Result
 
 ---
 

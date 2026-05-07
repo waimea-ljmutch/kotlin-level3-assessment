@@ -25,14 +25,12 @@ showing you can collect the dinos
 
 ### Test Data Used
 
-when i click on a island
+when i click on a island it should show the dinos on the right islands
 
 ### Test Result
 
-![example.png](screenshots/example.png)
-
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
-Comment on test result.
+[Recording 2026-05-08 111228.mp4](screenshots/Recording%202026-05-08%20111228.mp4)
+this is a video showing me finding all the dinos
 
 ---
 
