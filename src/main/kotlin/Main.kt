@@ -36,21 +36,21 @@ class Game() {
         val triassic = Island("triassic Island", 210, 120, 25)
         val jurassic = Island("jurassic Island", 303, 317, 25)
         val barassic = Island("barassic Island", 694, 205, 25)
-        val islaSorna = Island ("islaSorna", 321, 107, 25)
-        val islaNublar = Island ("IslaNublar", 638, 98, 25)
-        val preassic = Island ("preassic Island", 881, 271, 25)
+        val islaSorna = Island("islaSorna", 321, 107, 25)
+        val islaNublar = Island("IslaNublar", 638, 98, 25)
+        val preassic = Island("preassic Island", 881, 271, 25)
         val islaTreka = Island("islaTreka Island", 530, 324, 25)
         val islaTore = Island("islaTore Island", 328, 468, 25)
-        val prehistoric = Island("prehistoric Island",182, 277, 25)
+        val prehistoric = Island("prehistoric Island", 182, 277, 25)
         val titanJaw = Island("Titanjaw Island", 814, 432, 25)
-        val colossusSpine = Island("colossusSpine",409, 271,25)
+        val colossusSpine = Island("colossusSpine", 409, 271, 25)
         val obsidianFang = Island("obsidianFang Island", 893, 140, 25)
         val crimsonApex = Island("crimsonApex Island", 466, 189, 25)
         val kevin = Dino("Kevin", "carnivore", "dino-carno.png")
         val dave = Dino("Dave", "carnivore", "dino-trex.png")
         val drako = Dino("drako", "herbivore", "dino-stego.png")
         val drift = Dino("drift", "omnivore", "dino-quetzalcoatlus.png")
-        val kairo = Dino("kairo","carnivore", "dino-spino.png")
+        val kairo = Dino("kairo", "carnivore", "dino-spino.png")
         val void = Dino("void", "carnivore", "dino-indoraptor.png")
         val goro = Dino("goro", "carnivore", "dino-giga.png")
 
@@ -117,7 +117,7 @@ class Dino(val name: String, val species: String, val image: String)
  */
 
 class MainWindow(val game: Game) {
-    val frame = JFrame("WINDOW TITLE")
+    val frame = JFrame("")
     private val panel = JPanel().apply { layout = null }
 
 

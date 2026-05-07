@@ -4,35 +4,35 @@ The test results show the actual outcome of the testing, following the [Test Pla
 
 ---
 
-## Example Test Name
+## showing where the dinos are on the map
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+showing where you can find all the dinos and on which islands to go
 
 ### Test Data Used
 
-Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data.
+this just shows where to find the dinos on all the islands on the map bellow
 
 ### Test Result
 
-![example.png](screenshots/example.png)
-
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+![island-for-game.png](screenshots/island-for-game.png)
+you can see I have marked the islands with the dinos on it
 
 ---
 
-## Example Test Name
+## collecting the dinos
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+showing you can collect the dinos
 
 ### Test Data Used
 
-Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data.
+when i click on a island
 
 ### Test Result
 
 ![example.png](screenshots/example.png)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+Comment on test result.
 
 ---
 

@@ -12,15 +12,15 @@ too.
 
 The game functions correctly and meets the specification:
 
-- [ ] The game is **playable**
-- [ ] The game has a **GUI** with a range of controls
-- [ ] The **instructions** for the game are available via the GUI
-- [ ] Player provides game **inputs via the GUI** (e.g. moves, actions)
-- [ ] The **current status** of the game is **shown in the GUI**, updated each player input
-- [ ] The game is based on a **non-trivial map**
-- [ ] The player can **move between locations**
-- [ ] The player has a **clear purpose** they can attempt to achieve
-- [ ] A **win / end / loss state** is possible
+- [x] The game is **playable**
+- [x] The game has a **GUI** with a range of controls
+- [x] The **instructions** for the game are available via the GUI
+- [x] Player provides game **inputs via the GUI** (e.g. moves, actions)
+- [x] The **current status** of the game is **shown in the GUI**, updated each player input
+- [x] The game is based on a **non-trivial map**
+- [x] The player can **move between locations**
+- [x] The player has a **clear purpose** they can attempt to achieve
+- [x] A **win / end / loss state** is possible
 
 ### Program Code
 
@@ -30,32 +30,32 @@ The program stores data using:
 
 The program structure:
 
-- [ ] Defines and implements a **graphical user interface (GUI)**
-- [ ] Makes use of user-defined OOP **classes** from which **objects** are instantiated
-- [ ] Uses **functions** / **methods** to break up the code logically
-- [ ] Contains **sequences** of instructions
-- [ ] Uses **conditional** instructions to control the program flow
-- [ ] Uses program **branches** (if...else, when, etc.)
+- [x] Defines and implements a **graphical user interface (GUI)**
+- [x] Makes use of user-defined OOP **classes** from which **objects** are instantiated
+- [x] Uses **functions** / **methods** to break up the code logically
+- [x] Contains **sequences** of instructions
+- [x] Uses **conditional** instructions to control the program flow
+- [x] Uses program **branches** (if...else, when, etc.)
 - [ ] Uses **iteration** (loops) to repeat things (for, while, etc.)
 
 ### Program Documentation
 
 The program code:
 
-- [ ] Is **indented** correctly
-- [ ] Is **laid-out clearly**
+- [x] Is **indented** correctly
+- [x] Is **laid-out clearly**
 - [ ] Contains **comments** that help in understanding how it works
 
 ### Program Testing
 
 The program has been tested and there is documented evidence that:
 
-- [ ] The game is **fully functional**, showing testing of:
-    - [ ] game setup
-    - [ ] player movement
-    - [ ] other player actions
-    - [ ] scoring (if any)
-    - [ ] player win / lose states
+- [x] The game is **fully functional**, showing testing of:
+    - [x] game setup
+    - [x] player movement
+    - [x] other player actions
+    - [x] scoring (if any)
+    - [x] player win / lose states
     - [ ] final feedback (if appropriate)
 - [ ] **Valid (expected) data** has been used to test **all data inputs**
 - [ ] Where tests have failed, **fixes** are discussed and **tests re-run**

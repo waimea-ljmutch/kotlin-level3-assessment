@@ -1,6 +1,6 @@
-# PROJECT NAME HERE
+# Dino Explorer
 
-by YOUR NAME HERE
+by Liam Mutch
 
 ## Project Description
 
