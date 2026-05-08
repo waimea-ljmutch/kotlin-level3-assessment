@@ -12,30 +12,29 @@ Terminology:
 
 ## dino show
 
-testing to see if the dino show when click on islands
+testing to see if the dino show when click on islands the right islands
 
 ### Test Data To Use
 
-trying to show the dino when clicked on the right island
+I clicked on the top left island to show a dino
 
 ### Expected Test Result
+
+should show the dinosaurs when you click on the right island 
 
 ---
 
-## Example Test Name
+## collecting the dinos
 
-Example test description. Example test description. Example test description. Example test description. Example test
-description. Example test description.
+testing to see if the dinos go into the collecting system and remove the dinos
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and
-reasons for selection.
+I found a dino to see if I can collect it
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen.
-Statement detailing what should happen.
+should show the number at the bottom go up when you click the button
 
 ---
 

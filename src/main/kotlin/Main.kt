@@ -1,3 +1,17 @@
+/**
+ * =====================================================================
+ * Programming Project for NCEA Level 3, Standard 91906
+ * ---------------------------------------------------------------------
+ * Project Name:   Dino Explorer
+ * Project Author: Liam Mutch
+ * GitHub Repo:    https://github.com/waimea-ljmutch/kotlin-level3-assessment
+ * ---------------------------------------------------------------------
+ * Notes:
+ * PROJECT NOTES HERE
+ * =====================================================================
+ */
+
+
 import com.formdev.flatlaf.themes.FlatMacDarkLaf
 import java.awt.Color
 import java.awt.Font

@@ -56,7 +56,7 @@ The program has been tested and there is documented evidence that:
     - [x] other player actions
     - [x] scoring (if any)
     - [x] player win / lose states
-    - [ ] final feedback (if appropriate)
+    - [x] final feedback (if appropriate)
 - [x] **Valid (expected) data** has been used to test **all data inputs**
 - [ ] Where tests have failed, **fixes** are discussed and **tests re-run**
 
@@ -68,24 +68,24 @@ The program has been tested and there is documented evidence that:
 
 The program stores data using variables, where:
 
-- [ ] Variable **names are well-chosen** (relating to their purpose)
-- [ ] Variable names **begin with lowercase**
-- [ ] Naming is consistent, either **camelCase or snake_case**
-- [ ] Variables are **scoped appropriately** (global or local to a function)
+- [x] Variable **names are well-chosen** (relating to their purpose)
+- [x] Variable names **begin with lowercase**
+- [x] Naming is consistent, either **camelCase or snake_case**
+- [x] Variables are **scoped appropriately** (global or local to a function)
 - [ ] **Global** variables are only used if **genuinely needed**
 
 The program uses OOP classes and objects appropriately, where:
 
-- [ ] OOP class **names are well-chosen**, relating to their functionality
-- [ ] OOP class names **begin with uppercase**
-- [ ] OOP classes contain **well-chosen data fields**
-- [ ] OOP classes contain **well-chosen methods**
+- [x] OOP class **names are well-chosen**, relating to their functionality
+- [x] OOP class names **begin with uppercase**
+- [x] OOP classes contain **well-chosen data fields**
+- [x] OOP classes contain **well-chosen methods**
 
 The program uses functions appropriately, where:
 
-- [ ] Function **names are well-chosen**, relating to their functionality
-- [ ] Functions use **parameters** to pass data into them as needed
-- [ ] Functions provide a **return value** to the calling code if needed
+- [x] Function **names are well-chosen**, relating to their functionality
+- [x] Functions use **parameters** to pass data into them as needed
+- [x] Functions provide a **return value** to the calling code if needed
 
 ### Game GUI
 
@@ -108,8 +108,8 @@ The program code is well-commented:
 The program has been tested using:
 
 - [ ] A test plan **prepared in advance** of the coding
-- [ ] A test plan that **defines test data values** to be used
-- [ ] Test values that cover **boundary** (limit / edge) cases
+- [x] A test plan that **defines test data values** to be used
+- [x] Test values that cover **boundary** (limit / edge) cases
 
 ---
 
