@@ -46,6 +46,7 @@ class Game() {
     val islands = mutableListOf<Island>()
     var currentIsland: Island? = null
 
+    //list of islands and dinos
     init {
         val triassic = Island("triassic Island", 210, 120, 25)
         val jurassic = Island("jurassic Island", 303, 317, 25) //this all shows the islands
@@ -76,7 +77,7 @@ class Game() {
         barassic.addDino(drako)
         jurassic.addDino(dave)
         islands.add(triassic)
-        islands.add(jurassic)
+        islands.add(jurassic) //this all adds the island name and dinos into the app
         islands.add(barassic)
         islands.add(islaSorna)
         islands.add(islaNublar)
@@ -166,9 +167,15 @@ class MainWindow(val game: Game) {
         titleLabel.setBounds(0, 0, 1200, 100)
         dinoButton.setBounds(800, 730, 240, 40)
         mapLabel.setBounds(0, 100, 1200, 600)
-        targetLabel.setBounds(0, 0, 100, 100)
+        targetLabel.setBounds(
+            0,
+            0,
+            100,
+            100
+        ) //shows all the boundary of all the images and texts and the size of the images
         islandLabel.setBounds(100, 730, 600, 40)
         countLabel.setBounds(500, 730, 600, 40)
+
 
         panel.add(titleLabel)
         panel.add(dinoButton)
@@ -196,6 +203,7 @@ class MainWindow(val game: Game) {
 
     }
 
+    // Sets up the main window's appearance and behaviour.
     private fun setupWindow() {
         frame.isResizable = false
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
@@ -208,7 +216,8 @@ class MainWindow(val game: Game) {
 
     private fun setupActions() {
         dinoButton.addActionListener { handleMainClick() }
-        mapLabel.addMouseListener(object : MouseAdapter() {
+        mapLabel.addMouseListener(object :
+            MouseAdapter() { // Registers button and map click events for user interaction.
             override fun mouseClicked(e: MouseEvent) {
                 handleMapClick(e.x, e.y)
             } // when you click on an island it register it
@@ -220,7 +229,7 @@ class MainWindow(val game: Game) {
 
         for (island in game.islands) {
             if (
-                x >= island.mapX - island.mapR &&
+                x >= island.mapX - island.mapR && // Detects whether a map click occurred within the area of an island.
                 y >= island.mapY - island.mapR &&
                 x <= island.mapX + island.mapR &&
                 y <= island.mapY + island.mapR
@@ -228,7 +237,7 @@ class MainWindow(val game: Game) {
 
                 game.gotoIsland(island)
 
-                targetLabel.setLocation(island.mapX - 50, island.mapY + 50)
+                targetLabel.setLocation(island.mapX - 50, island.mapY + 50) //this sets where the target is
                 targetLabel.isVisible = true
 
                 islandLabel.text = "Going to ${island.name}" //goes to a island when clicked
@@ -238,14 +247,14 @@ class MainWindow(val game: Game) {
     }
 
     private fun handleMainClick() {
-        dinoButton.addActionListener { handleMainClick() }
-        infoWindow.show()                                               // Update the app state
-        // Update this window UI to reflect this
+        dinoButton.addActionListener { handleMainClick() } //shows that you can click on the dinos
+        infoWindow.show()
+
     }
 
 
     fun updateUI() {
-        countLabel.text = "Collected: ${game.dinoCount} / 7"
+        countLabel.text = "Collected: ${game.dinoCount} / 7" //shows how many dinos you have collected
     }
 
     fun show() {
@@ -268,7 +277,7 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
 
     private val infoLabel = JLabel("DINO NAME")
     private val dinoLabel = JLabel()
-    private val collectButton = JButton("Collect Dino")
+    private val collectButton = JButton("Collect Dino") //these are the titles and text in the app
 
 
     init {
@@ -295,19 +304,21 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         infoLabel.font = Font(Font.SANS_SERIF, Font.PLAIN, 16)
     }
 
+    // Configures the dialog window and applies styling to its components.
     private fun setupWindow() {
         dialog.isResizable = false                              // Can't resize
         dialog.defaultCloseOperation = JDialog.HIDE_ON_CLOSE    // Hide upon window close
         dialog.contentPane = panel                              // Main content panel
         dialog.pack()
 
-        dinoLabel.font = Font(Font.SANS_SERIF, Font.BOLD, 22)
+        dinoLabel.font =
+            Font(Font.SANS_SERIF, Font.BOLD, 22)
         dinoLabel.horizontalTextPosition = SwingConstants.RIGHT
     }
 
 
     private fun setupActions() {
-        collectButton.addActionListener { handleDinoClick() }
+        collectButton.addActionListener { handleDinoClick() }  // Sets up button actions for user interaction.
     }
 
     fun handleDinoClick() {
@@ -319,7 +330,7 @@ class InfoWindow(val owner: MainWindow, val game: Game) {
         owner.updateUI()
 
         if (game.isOver()) {
-            JOptionPane.showMessageDialog(
+            JOptionPane.showMessageDialog(        //shows when you collect all the dinos the text bellow
                 owner.frame,
                 "You found them all!!!",
                 "Success",
